@@ -1,0 +1,11 @@
+app:
+  bot:
+    token: ${GITHUB_STATS_BOT_TOKEN}
+
+logging:
+  level:
+    dev:
+      seniorjava:
+        githubstatisticsbot: TRACE
+    org:
+      springframework: INFO
