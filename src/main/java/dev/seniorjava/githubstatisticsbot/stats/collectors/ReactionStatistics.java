@@ -12,39 +12,39 @@ public class ReactionStatistics {
   private Reactions reactions;
 
   public String username() {
-    return user.login;
+    return user == null ? null : user.login;
   }
 
   public int pluses() {
-    return reactions.plus;
+    return reactions == null ? 0 : reactions.plus;
   }
 
   public int minuses() {
-    return reactions.minus;
+    return reactions == null ? 0 : reactions.minus;
   }
 
   public int laughs() {
-    return reactions.laugh;
+    return reactions == null ? 0 : reactions.laugh;
   }
 
   public int hoorays() {
-    return reactions.hooray;
+    return reactions == null ? 0 : reactions.hooray;
   }
 
   public int confused() {
-    return reactions.confused;
+    return reactions == null ? 0 : reactions.confused;
   }
 
   public int hearts() {
-    return reactions.heart;
+    return reactions == null ? 0 : reactions.heart;
   }
 
   public int rockets() {
-    return reactions.rocket;
+    return reactions == null ? 0 : reactions.rocket;
   }
 
   public int eyes() {
-    return reactions.eyes;
+    return reactions == null ? 0 : reactions.eyes;
   }
 
   @AllArgsConstructor

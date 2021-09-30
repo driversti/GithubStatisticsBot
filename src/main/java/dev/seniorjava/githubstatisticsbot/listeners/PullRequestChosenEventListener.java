@@ -17,14 +17,14 @@ import org.springframework.stereotype.Component;
 public class PullRequestChosenEventListener {
 
   private static final String PR_LINK_FORMAT = "https://github.com/{owner}/{repo_name}/pull/{number}";
+  public static final String MESSAGE_TO_USER = format(
+      "Please, provide a link to a PR strictly in the following format: %s", PR_LINK_FORMAT);
 
   private final TelegramBot bot;
 
   @EventListener(PullRequestChosenEvent.class)
   public void handle(final PullRequestChosenEvent event) {
-    final String messageToUser = format(
-        "Please, provide a link to a PR strictly in the following format: %s", PR_LINK_FORMAT);
-    bot.execute(new SendMessage(event.chatId(), messageToUser)
+    bot.execute(new SendMessage(event.chatId(), MESSAGE_TO_USER)
         .replyMarkup(new ForceReply()));
   }
 }

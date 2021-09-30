@@ -3,7 +3,6 @@ package dev.seniorjava.githubstatisticsbot.factories;
 import com.pengrad.telegrambot.model.Update;
 import dev.seniorjava.githubstatisticsbot.events.CommitChosenEvent;
 import dev.seniorjava.githubstatisticsbot.events.Event;
-import dev.seniorjava.githubstatisticsbot.events.PullRequestChosenEvent;
 import dev.seniorjava.githubstatisticsbot.exceptions.EventCannotBeCreatedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
