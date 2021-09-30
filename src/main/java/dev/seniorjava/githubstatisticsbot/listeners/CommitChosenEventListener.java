@@ -17,15 +17,15 @@ import org.springframework.stereotype.Component;
 public class CommitChosenEventListener {
 
   private static final String COMMIT_LINK_FORMAT = "https://github.com/{owner}/{repo_name}/commit/{hash}";
+  public static final String MESSAGE_TO_USER = format(
+      "Please, provide a link to a commit strictly in the following format: %s",
+      COMMIT_LINK_FORMAT);
 
   private final TelegramBot bot;
 
   @EventListener(CommitChosenEvent.class)
   public void handle(final CommitChosenEvent event) {
-    final String messageToUser = format(
-        "Please, provide a link to a commit strictly in the following format: %s",
-        COMMIT_LINK_FORMAT);
-    bot.execute(new SendMessage(event.chatId(), messageToUser)
+    bot.execute(new SendMessage(event.chatId(), MESSAGE_TO_USER)
         .replyMarkup(new ForceReply()));
   }
 }

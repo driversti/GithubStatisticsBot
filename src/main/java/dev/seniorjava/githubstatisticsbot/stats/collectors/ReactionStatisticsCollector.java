@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.springframework.stereotype.Component;
 
@@ -42,14 +41,14 @@ public class ReactionStatisticsCollector {
   }
 
   private String getJsonContent(final String targetURL) throws IOException {
-    final Response response = httpClient.newCall(createRequest(targetURL)).execute();
-    final ResponseBody body = response.body();
-    if (response.isSuccessful() && body != null) {
-      final String json = body.string();
-      body.close();
-      return json;
+    try (final var response = httpClient.newCall(createRequest(targetURL)).execute()) {
+      final ResponseBody body = response.body();
+      if (response.isSuccessful() && body != null) {
+        final String json = body.string();
+        body.close();
+        return json;
+      }
     }
-    response.close();
     throw new CannotFetchGithubDataException(targetURL);
   }
 

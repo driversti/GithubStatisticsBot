@@ -4,6 +4,7 @@ import dev.seniorjava.githubstatisticsbot.stats.collectors.ReactionStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -28,40 +29,15 @@ public class StatisticsFormatter {
     final List<ReactionStatistics> stats = entry.getValue();
 
     return String.format("%s\n%d\uD83D\uDC4D %d\uD83D\uDC4E %d\uD83D\uDE04 %d\uD83C\uDF89 "
-            + "%d\uD83D\uDE15 %d❤️ %d\uD83D\uDE80 %d\uD83D\uDC40",
-        username, thumbsUp(stats), thumbsDown(stats), laughs(stats), hoorays(stats),
-        confused(stats), hearts(stats), rockets(stats), eyes(stats));
+            + "%d\uD83D\uDE15 %d❤️ %d\uD83D\uDE80 %d\uD83D\uDC40", username,
+        sumOf(stats, ReactionStatistics::pluses), sumOf(stats, ReactionStatistics::minuses),
+        sumOf(stats, ReactionStatistics::laughs), sumOf(stats, ReactionStatistics::hoorays),
+        sumOf(stats, ReactionStatistics::confused), sumOf(stats, ReactionStatistics::hearts),
+        sumOf(stats, ReactionStatistics::rockets), sumOf(stats, ReactionStatistics::eyes));
   }
 
-  private int thumbsUp(final List<ReactionStatistics> stats) {
-    return stats.stream().mapToInt(ReactionStatistics::pluses).sum();
-  }
-
-  private int thumbsDown(final List<ReactionStatistics> stats) {
-    return stats.stream().mapToInt(ReactionStatistics::minuses).sum();
-  }
-
-  private int laughs(final List<ReactionStatistics> stats) {
-    return stats.stream().mapToInt(ReactionStatistics::laughs).sum();
-  }
-
-  private int hoorays(final List<ReactionStatistics> stats) {
-    return stats.stream().mapToInt(ReactionStatistics::hoorays).sum();
-  }
-
-  private int confused(final List<ReactionStatistics> stats) {
-    return stats.stream().mapToInt(ReactionStatistics::confused).sum();
-  }
-
-  private int hearts(final List<ReactionStatistics> stats) {
-    return stats.stream().mapToInt(ReactionStatistics::hearts).sum();
-  }
-
-  private int rockets(final List<ReactionStatistics> stats) {
-    return stats.stream().mapToInt(ReactionStatistics::rockets).sum();
-  }
-
-  private int eyes(final List<ReactionStatistics> stats) {
-    return stats.stream().mapToInt(ReactionStatistics::eyes).sum();
+  private int sumOf(final List<ReactionStatistics> statistics,
+      final ToIntFunction<ReactionStatistics> mapper) {
+    return statistics.stream().mapToInt(mapper).sum();
   }
 }
