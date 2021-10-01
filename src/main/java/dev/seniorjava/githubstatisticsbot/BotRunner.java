@@ -1,6 +1,7 @@
 package dev.seniorjava.githubstatisticsbot;
 
 import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.UpdatesListener;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class BotRunner {
 
   private final TelegramBot bot;
-  private final DefaultUpdatesListener updatesListener;
+  private final UpdatesListener updatesListener;
 
   @EventListener(ApplicationReadyEvent.class)
   public void run() {
