@@ -1,6 +1,7 @@
 package dev.seniorjava.githubstatisticsbot.listeners;
 
 import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.model.request.ReplyKeyboardRemove;
 import com.pengrad.telegrambot.request.SendMessage;
 import dev.seniorjava.githubstatisticsbot.events.PullRequestLinkProvidedEvent;
 import dev.seniorjava.githubstatisticsbot.stats.collectors.ReactionStatisticsCollector;
@@ -30,7 +31,8 @@ public class PullRequestLinkProvidedListener {
 
     final String formattedStats = statisticsFormatter.format(groupByUsername(stats));
 
-    bot.execute(new SendMessage(event.chatId(), formattedStats));
+    bot.execute(new SendMessage(event.chatId(), formattedStats)
+        .replyMarkup(new ReplyKeyboardRemove()));
   }
 
   private static Map<String, List<ReactionStatistics>> groupByUsername(final Collection<ReactionStatistics> stats) {

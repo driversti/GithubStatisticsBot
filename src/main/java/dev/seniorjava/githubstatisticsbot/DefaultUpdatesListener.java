@@ -3,6 +3,7 @@ package dev.seniorjava.githubstatisticsbot;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.request.ReplyKeyboardRemove;
 import com.pengrad.telegrambot.request.SendMessage;
 import dev.seniorjava.githubstatisticsbot.factories.FactoriesResolver;
 import java.util.List;
@@ -31,7 +32,8 @@ public class DefaultUpdatesListener implements UpdatesListener {
       // todo hope it exists. A place for improvements (create a handler for exceptions)
       final Long chatId = update.message().chat().id();
       log.error("Cannot process request.", ex);
-      bot.execute(new SendMessage(chatId, "Sorry, I can't process your message. Try again."));
+      bot.execute(new SendMessage(chatId, "Sorry, I can't process your message. Try again: /start")
+          .replyMarkup(new ReplyKeyboardRemove()));
     }
   }
 }
